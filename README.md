@@ -110,6 +110,22 @@ Scripts/build-app.sh        # 打包成 NetSpeed.app（ad-hoc 签名）
 
 ## 三、构建与使用
 
+### 直接下载安装
+
+从 [Releases](https://github.com/yifas/netSpeed/releases) 下载 `NetSpeed-v1.0.0.zip`（内含 `NetSpeed.app`）：
+
+```bash
+unzip NetSpeed-v1.0.0.zip
+cp -R NetSpeed.app /Applications/
+open /Applications/NetSpeed.app
+```
+
+> 应用为 ad-hoc 签名（未做 Apple 公证）。若提示「无法验证开发者」，
+> 请在「系统设置 → 隐私与安全性」中点「仍要打开」，
+> 或先执行 `xattr -dr com.apple.quarantine NetSpeed.app`。
+
+### 自行构建
+
 ```bash
 # 构建并生成 dist/NetSpeed.app
 ./Scripts/build-app.sh
