@@ -22,7 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem.button?.image = StatusLabelRenderer.makeImage(download: "  0.0B", upload: "  0.0B", showUpload: true)
-        statusItem.button?.toolTip = "NetSpeed · 菜单栏实时网速"
+        statusItem.button?.toolTip = "NetSpeed · 菜单栏实时上下行速率"
 
         buildMenu()
         monitor.onChange = { [weak self] in self?.refresh() }
