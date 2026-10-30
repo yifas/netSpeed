@@ -111,10 +111,10 @@ Scripts/build-app.sh        # packages NetSpeed.app (ad-hoc signature)
 
 ### Download and install
 
-Grab `NetSpeed-v1.0.0.zip` from [Releases](https://github.com/yifas/netSpeed/releases) (it contains `NetSpeed.app`):
+Grab `NetSpeed-v1.0.1.zip` from [Releases](https://github.com/yifas/netSpeed/releases) (it contains `NetSpeed.app`):
 
 ```bash
-unzip NetSpeed-v1.0.0.zip
+unzip NetSpeed-v1.0.1.zip
 cp -R NetSpeed.app /Applications/
 open /Applications/NetSpeed.app
 ```

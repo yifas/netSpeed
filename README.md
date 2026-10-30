@@ -114,10 +114,10 @@ Scripts/build-app.sh        # 打包成 NetSpeed.app（ad-hoc 签名）
 
 ### 直接下载安装
 
-从 [Releases](https://github.com/yifas/netSpeed/releases) 下载 `NetSpeed-v1.0.0.zip`（内含 `NetSpeed.app`）：
+从 [Releases](https://github.com/yifas/netSpeed/releases) 下载 `NetSpeed-v1.0.1.zip`（内含 `NetSpeed.app`）：
 
 ```bash
-unzip NetSpeed-v1.0.0.zip
+unzip NetSpeed-v1.0.1.zip
 cp -R NetSpeed.app /Applications/
 open /Applications/NetSpeed.app
 ```
