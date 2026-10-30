@@ -72,14 +72,16 @@ macOS 内核在每个网络接口的 `if_data` 结构中维护累计计数：
 
 实现要点（这是“不跳动”的关键）：
 
-- 标签用 **AppKit `NSStatusItem`**，并显式设置 `statusItem.length = 116`（固定宽度）
-- 标签内容用**固定尺寸的 NSImage**（116×18 pt）承载，图片宽度与文字内容完全无关
+- 标签用 **AppKit `NSStatusItem`**（`NSStatusItem.variableLength`），宽度由标签图片尺寸决定
 - 图片内用等宽字体 `NSFont.monospacedSystemFont` 绘制，字符位置恒定
 - 数值用 `%5.1f` + 单位填充到 6 字符（`  3.0K` / ` 36.2M` / `999.9M`），单位字母始终在同一列
+- 因此只要**字符个数固定**，标签宽度就恒定：实测下行 `54 pt`、含上行 `114 pt`，与速率位数无关
+- **取消勾选“显示上传速率”时，上行那一块（含 `↑` 箭头）整块去掉，不留空位**，标签宽度从 114 pt 缩回 54 pt；
+  再勾选时按同样的定宽规则恢复为 114 pt
 
 > 为什么不用 SwiftUI 的 `MenuBarExtra`：实测 `MenuBarExtra` 会忽略 label 上的 `.font(design: .monospaced)`
 > 与 `.frame(width:)`，按**比例字体**测量文字宽度，数字位数一变整个文字块宽度就变，
-> 把左边的图标推着来回跳（实测标签左边界漂移 17px）。改用 `NSStatusItem` + 固定长度 + 固定尺寸图片后彻底消除。
+> 把左边的图标推着来回跳（实测标签左边界漂移 17px）。改用 `NSStatusItem` + 等宽字体 + 定宽数值后彻底消除。
 
 点击展开菜单（NSMenu）：
 
@@ -97,7 +99,7 @@ macOS 内核在每个网络接口的 `if_data` 结构中维护累计计数：
 Sources/NetSpeed/
 ├── main.swift              # 入口（AppKit，--report 命令行自检）
 ├── AppDelegate.swift       # NSStatusItem + NSMenu 界面与菜单
-├── StatusLabelRenderer.swift# 固定尺寸标签图片渲染（等宽字体）
+├── StatusLabelRenderer.swift# 标签图片渲染（等宽字体，宽度随显示内容自适应）
 ├── SpeedMonitor.swift      # 定时采样、差分计算、接口筛选
 ├── NetworkReader.swift     # getifaddrs 读取内核计数
 ├── ByteFormatter.swift     # 字节数格式化（定宽/普通两种）
@@ -144,4 +146,8 @@ cp -R dist/NetSpeed.app /Applications/
 2. **偶发崩溃**（`EXC_BREAKPOINT`）：接口计数器回绕/重置时 `UInt64` 减法回绕成巨大值，
    `Int64(bytesPerSecond)` 触发 Swift 运行时 trap → 改为饱和减法（回绕按 0 处理）+
    速率上限钳制（1 TB/s）+ 格式化函数内部再做一次防御
+3. **取消“显示上传速率”后右侧留空**：
+   - 原来标签是固定 116 pt 宽的整张图片，关闭上行时靠尾部补空格对齐，导致右边空出一块
+   - 修复：标签图片改为按**实际文字宽度**生成（`NSStatusItem.variableLength`），
+     关闭上行时整块上行内容不画，宽度从 114 pt 缩到 54 pt；打开后按同样的定宽规则恢复为 114 pt
 

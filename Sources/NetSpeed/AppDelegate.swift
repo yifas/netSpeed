@@ -2,8 +2,8 @@ import AppKit
 
 /// AppKit 版菜单栏应用。
 ///
-/// 用 `NSStatusItem` + **固定宽度**（`statusItem.length`）+ **固定尺寸图片**承载标签，
-/// 因此标签宽度与文字内容完全无关，任何速率数值都不会让菜单栏里其它图标移动。
+/// 用 `NSStatusItem`（`variableLength`）+ **按内容定尺寸图片**承载标签：
+/// 下行部分定宽，速率位数变化时宽度恒定；上行部分关闭时整块去掉，标签随之收缩。
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let monitor = SpeedMonitor()
@@ -20,7 +20,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let quitItem = NSMenuItem(title: "退出 NetSpeed", action: #selector(quit), keyEquivalent: "q")
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        statusItem = NSStatusBar.system.statusItem(withLength: StatusLabelRenderer.size.width)
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem.button?.image = StatusLabelRenderer.makeImage(download: "  0.0B", upload: "  0.0B", showUpload: true)
         statusItem.button?.toolTip = "NetSpeed · 菜单栏实时网速"
 
