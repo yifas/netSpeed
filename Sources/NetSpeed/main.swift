@@ -11,12 +11,12 @@ if let index = arguments.firstIndex(of: "--report") {
 // 登录项开关：`NetSpeed --login-on` / `--login-off`
 if arguments.contains("--login-on") {
     LoginItem.setEnabled(true)
-    print("登录项：\(LoginItem.isEnabled ? "已启用" : "启用失败")")
+    print("Login item: \(LoginItem.isEnabled ? "enabled" : "failed to enable")")
     exit(LoginItem.isEnabled ? 0 : 1)
 }
 if arguments.contains("--login-off") {
     LoginItem.setEnabled(false)
-    print("登录项：\(LoginItem.isEnabled ? "仍为启用" : "已关闭")")
+    print("Login item: \(LoginItem.isEnabled ? "still enabled" : "disabled")")
     exit(0)
 }
 

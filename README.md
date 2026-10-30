@@ -85,13 +85,13 @@ macOS 内核在每个网络接口的 `if_data` 结构中维护累计计数：
 > 与 `.frame(width:)`，按**比例字体**测量文字宽度，数字位数一变整个文字块宽度就变，
 > 把左边的图标推着来回跳（实测标签左边界漂移 17px）。改用 `NSStatusItem` + 等宽字体 + 定宽数值后彻底消除。
 
-点击展开菜单（NSMenu）：
+点击展开菜单（NSMenu，界面文案为英文）：
 
-- 下载 / 上传当前速率（`1.2 MB/s`）
-- **接口明细**子菜单：逐接口的上下行速率
-- 统计范围、刷新间隔（1/2/5 秒）、是否显示上行
-- 登录时启动（`SMAppService`）
-- 退出
+- Download / Upload 当前速率（`1.2 MB/s`）
+- **Interface Details** 子菜单：逐接口的上下行速率
+- Scope（Automatic / All Interfaces / Primary Interface）、Refresh Interval（1s / 2s / 5s）、Show Upload Speed
+- Launch at Login（`SMAppService`）
+- Quit NetSpeed
 
 设置通过 `UserDefaults` 持久化。
 

@@ -30,16 +30,16 @@ enum HeadlessReport {
                                     current.name as NSString,
                                     ByteFormatter.speed(down) as NSString,
                                     ByteFormatter.speed(up) as NSString,
-                                    excluded ? "  (自动模式不计)" : ""))
+                                    excluded ? "  (not counted in Automatic)" : ""))
                 if !excluded {
                     totalDown += down
                     totalUp += up
                 }
             }
 
-            print("── 采样 ─────────────────────────────")
+            print("── sample ───────────────────────────")
             lines.forEach { print($0) }
-            print(String(format: "  合计     ↓%@  ↑%@",
+            print(String(format: "  total     ↓%@  ↑%@",
                          ByteFormatter.speed(totalDown) as NSString,
                          ByteFormatter.speed(totalUp) as NSString))
             fflush(stdout)

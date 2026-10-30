@@ -82,13 +82,13 @@ Implementation details (this is what makes it "never jump"):
 
 > Why not SwiftUI's `MenuBarExtra`: in practice `MenuBarExtra` ignores `.font(design: .monospaced)` and `.frame(width:)` on the label and measures the text with a **proportional** font, so as soon as the number of digits changes the whole text block changes width and pushes the icons next to it around (measured 17 px of drift). Switching to `NSStatusItem` + monospaced font + fixed-width values eliminated it completely.
 
-Clicking opens an `NSMenu`:
+Clicking opens an `NSMenu` (the UI text is in English):
 
 - Current download / upload speed (`1.2 MB/s`)
-- **Interface details** submenu: per-interface download and upload speeds
-- Accounting scope, refresh interval (1/2/5 seconds), whether to show the upload speed
-- Launch at login (`SMAppService`)
-- Quit
+- **Interface Details** submenu: per-interface download and upload speeds
+- Scope (Automatic / All Interfaces / Primary Interface), Refresh Interval (1s / 2s / 5s), whether to show the upload speed
+- Launch at Login (`SMAppService`)
+- Quit NetSpeed
 
 Settings are persisted with `UserDefaults`.
 

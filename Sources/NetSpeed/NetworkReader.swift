@@ -25,9 +25,9 @@ enum InterfaceFilter: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .auto: return "自动"
-        case .all: return "全部接口"
-        case .primary: return "主接口"
+        case .auto: return "Automatic"
+        case .all: return "All Interfaces"
+        case .primary: return "Primary Interface"
         }
     }
 

@@ -10,19 +10,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
 
     private let menu = NSMenu()
-    private let downloadItem = NSMenuItem(title: "下载：0 B/s", action: nil, keyEquivalent: "")
-    private let uploadItem = NSMenuItem(title: "上传：0 B/s", action: nil, keyEquivalent: "")
-    private let interfaceItem = NSMenuItem(title: "接口明细", action: nil, keyEquivalent: "")
-    private let scopeItem = NSMenuItem(title: "统计范围", action: nil, keyEquivalent: "")
-    private let intervalItem = NSMenuItem(title: "刷新间隔", action: nil, keyEquivalent: "")
-    private let showUploadItem = NSMenuItem(title: "显示上传速率", action: #selector(toggleUpload(_:)), keyEquivalent: "")
-    private let loginItem = NSMenuItem(title: "登录时启动", action: #selector(toggleLogin(_:)), keyEquivalent: "")
-    private let quitItem = NSMenuItem(title: "退出 NetSpeed", action: #selector(quit), keyEquivalent: "q")
+    private let downloadItem = NSMenuItem(title: "Download: 0 B/s", action: nil, keyEquivalent: "")
+    private let uploadItem = NSMenuItem(title: "Upload: 0 B/s", action: nil, keyEquivalent: "")
+    private let interfaceItem = NSMenuItem(title: "Interface Details", action: nil, keyEquivalent: "")
+    private let scopeItem = NSMenuItem(title: "Scope", action: nil, keyEquivalent: "")
+    private let intervalItem = NSMenuItem(title: "Refresh Interval", action: nil, keyEquivalent: "")
+    private let showUploadItem = NSMenuItem(title: "Show Upload Speed", action: #selector(toggleUpload(_:)), keyEquivalent: "")
+    private let loginItem = NSMenuItem(title: "Launch at Login", action: #selector(toggleLogin(_:)), keyEquivalent: "")
+    private let quitItem = NSMenuItem(title: "Quit NetSpeed", action: #selector(quit), keyEquivalent: "q")
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem.button?.image = StatusLabelRenderer.makeImage(download: "  0.0B", upload: "  0.0B", showUpload: true)
-        statusItem.button?.toolTip = "NetSpeed · 菜单栏实时上下行速率"
+        statusItem.button?.toolTip = "NetSpeed · Live network speed in the menu bar"
 
         buildMenu()
         monitor.onChange = { [weak self] in self?.refresh() }
@@ -62,8 +62,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func refresh() {
         let snapshot = monitor.snapshot
 
-        downloadItem.title = "下载：\(ByteFormatter.speed(snapshot.downloadBytesPerSecond))"
-        uploadItem.title = "上传：\(ByteFormatter.speed(snapshot.uploadBytesPerSecond))"
+        downloadItem.title = "Download: \(ByteFormatter.speed(snapshot.downloadBytesPerSecond))"
+        uploadItem.title = "Upload: \(ByteFormatter.speed(snapshot.uploadBytesPerSecond))"
         showUploadItem.state = monitor.showUpload ? .on : .off
         loginItem.state = LoginItem.isEnabled ? .on : .off
 
@@ -82,7 +82,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let submenu = NSMenu()
         submenu.autoenablesItems = false
         if speeds.isEmpty {
-            let empty = NSMenuItem(title: "暂无活动接口", action: nil, keyEquivalent: "")
+            let empty = NSMenuItem(title: "No active interfaces", action: nil, keyEquivalent: "")
             empty.isEnabled = false
             submenu.addItem(empty)
         } else {
@@ -147,7 +147,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func toggleLogin(_ sender: NSMenuItem) {
         if let error = LoginItem.setEnabled(!LoginItem.isEnabled) {
             let alert = NSAlert()
-            alert.messageText = "无法设置登录项"
+            alert.messageText = "Could not update the login item"
             alert.informativeText = error
             alert.runModal()
         }

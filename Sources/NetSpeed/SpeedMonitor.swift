@@ -22,7 +22,7 @@ enum RefreshInterval: Double, CaseIterable, Identifiable {
     case five = 5.0
 
     var id: Double { rawValue }
-    var title: String { "\(Int(rawValue)) 秒" }
+    var title: String { "\(Int(rawValue))s" }
 }
 
 /// 网络速率采样器：定时读取内核计数并做差分。
