@@ -14,6 +14,10 @@ A small personal-use macOS menu bar app: shows the current **download speed** (a
 
 The menu bar label is fixed-width: `↓` is the download speed, `↑` is the upload speed, and the unit switches automatically between `K` / `M` / `G`.
 
+The drop-down menu opened by clicking the menu bar icon (the UI is in English):
+
+![NetSpeed menu](docs/menu.png)
+
 ---
 
 ## 1. Survey of existing GitHub projects
